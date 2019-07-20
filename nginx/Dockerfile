@@ -1,7 +1,7 @@
 FROM nginx:1.16-alpine
 
 WORKDIR /opt
-ARG Version=1.5.2
+ENV Version=1.5.2
 
 RUN set -ex \
     && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \

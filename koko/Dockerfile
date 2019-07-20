@@ -1,7 +1,7 @@
 FROM alpine:3.9
 
 WORKDIR /opt/coco
-ARG KokoAssets=koko-master-accd0e6-linux-amd64 \
+ENV KokoAssets=koko-master-accd0e6-linux-amd64 \
     Version=1.5.2
 
 RUN set -ex \
