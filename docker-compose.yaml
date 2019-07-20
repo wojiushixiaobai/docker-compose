@@ -1,0 +1,110 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: jms_mysql
+    restart: always
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: Somepassword
+      MYSQL_DATABASE: jumpserver
+    command: --character-set-server=utf8
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - jumpserver
+
+  redis:
+    image: redis:alpine
+    container_name: jms_redis
+    restart: always
+    tty: true
+    volumes:
+      - redis-data:/data
+    networks:
+      - jumpserver
+
+  core:
+    image: jumpserver/jms_core:1.5.2
+    container_name: jms_core
+    hostname: jms_core
+    restart: always
+    tty: true
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - static:/opt/jumpserver/data/static
+      - media:/opt/jumpserver/data/media
+      - logs:/opt/jumpserver/logs
+      - ./core/config.yml:/opt/jumpserver/config.yml
+    networks:
+      - jumpserver
+
+  coco:
+    image: jumpserver/jms_koko:1.5.2
+    container_name: jms_coco
+    restart: always
+    tty: true
+    depends_on:
+      - core
+      - mysql
+      - redis
+    volumes: 
+      - keys-data:/opt/coco/keys
+      - ./koko/config.yml:/opt/coco/config.yml
+    ports:
+      - 2222:2222
+    networks:
+      - jumpserver
+      
+  guacamole:
+    image: jumpserver/jms_guacamole:1.5.2
+    container_name: jms_guacamole
+    restart: always
+    tty: true
+    environment:
+      JUMPSERVER_SERVER: http://core:8080
+      BOOTSTRAP_TOKEN: swsUBHoKvktx4Bhu
+    depends_on:
+      - core
+      - mysql
+      - redis
+    volumes: 
+      - gua-key:/config/guacamole/keys
+    ports:
+      - 8081:8081
+    networks:
+      - jumpserver
+      
+  nginx:
+    image: nginx:1.16-alpine
+    container_name: jms_nginx
+    restart: always
+    tty: true
+    depends_on:
+      - core
+      - coco
+      - mysql
+      - redis
+    volumes: 
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/luna:/opt/luna
+      - static:/opt/jumpserver/data/static
+      - media:/opt/jumpserver/data/media
+    ports:
+      - 80:80
+    networks:
+      - jumpserver
+
+volumes:
+  static:
+  media:
+  logs:
+  db-data:
+  redis-data:
+  keys-data:
+  gua-key:
+
+networks:
+  jumpserver:
