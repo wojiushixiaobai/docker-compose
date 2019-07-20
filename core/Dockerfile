@@ -15,8 +15,8 @@ RUN set -ex \
 
 RUN set -ex \
     && wget https://github.com/jumpserver/jumpserver/archive/${Version}.zip \
-	&& unzip ${Version}.zip \
-	&& mv jumpserver-${Version} jumpserver \
+    && unzip ${Version}.zip \
+    && mv jumpserver-${Version} jumpserver \
     && yum -y install $(cat /opt/jumpserver/requirements/rpm_requirements.txt) \
     && python3.6 -m venv /opt/py3 \
     && source /opt/py3/bin/activate \
