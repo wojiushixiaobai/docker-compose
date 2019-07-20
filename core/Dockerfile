@@ -17,6 +17,7 @@ RUN set -ex \
     && wget https://github.com/jumpserver/jumpserver/archive/${Version}.zip \
     && unzip ${Version}.zip \
     && mv jumpserver-${Version} jumpserver \
+    && chown -R root:root jumpserver \
     && yum -y install $(cat /opt/jumpserver/requirements/rpm_requirements.txt) \
     && python3.6 -m venv /opt/py3 \
     && source /opt/py3/bin/activate \
@@ -28,14 +29,10 @@ RUN set -ex \
     && rm -rf /var/cache/yum/* \
     && rm -rf ~/.cache/pip
 
-COPY entrypoint.sh /bin/entrypoint.sh
-RUN chmod +x /bin/entrypoint.sh
-
-VOLUME /opt/jumpserver/data/media
-VOLUME /opt/jumpserver/data/static
+COPY core/entrypoint.sh .
+RUN chmod 755 ./entrypoint.sh
 
 ENV LANG=zh_CN.UTF-8 \
     LC_ALL=zh_CN.UTF-8
 
-EXPOSE 8080
-ENTRYPOINT ["entrypoint.sh"]
+CMD ["./entrypoint.sh"]
