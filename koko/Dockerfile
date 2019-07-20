@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.9
 
 WORKDIR /opt/coco
 ARG KokoAssets=koko-master-accd0e6-linux-amd64 \
