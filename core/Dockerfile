@@ -4,7 +4,7 @@ ENV Version=1.5.2
 
 RUN set -ex \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && yum -y install kde-l10n-Chinese epel-release \
+    && yum -y install kde-l10n-Chinese epel-release gcc \
     && yum -y reinstall glibc-common \
     && localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8 \
     && export LC_ALL=zh_CN.UTF-8 \
