@@ -25,7 +25,7 @@ services:
       - jumpserver
 
   core:
-    image: wojiushixiaobai/jms_core:1.5.2
+    image: wojiushixiaobai/jms_core:${Version}
     container_name: jms_core
     hostname: jms_core
     restart: always
@@ -52,7 +52,7 @@ services:
       - jumpserver
 
   coco:
-    image: wojiushixiaobai/jms_koko:1.5.2
+    image: wojiushixiaobai/jms_koko:${Version}
     container_name: jms_coco
     restart: always
     tty: true
@@ -72,7 +72,7 @@ services:
       - jumpserver
 
   guacamole:
-    image: wojiushixiaobai/jms_guacamole:1.5.2
+    image: wojiushixiaobai/jms_guacamole:${Version}
     container_name: jms_guacamole
     restart: always
     tty: true
@@ -93,7 +93,7 @@ services:
       - jumpserver
 
   nginx:
-    image: wojiushixiaobai/jms_nginx:1.5.2
+    image: wojiushixiaobai/jms_nginx:${Version}
     container_name: jms_nginx
     restart: always
     tty: true
