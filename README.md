@@ -1,4 +1,4 @@
-# Jumpserver Docker-Compose
+## Jumpserver Docker-Compose
 
 ```
 $ git clone https://github.com/wojiushixiaobai/docker-compose.git
@@ -6,7 +6,7 @@ $ cd docker-compose
 $ cat .env
 $ docker-compose up
 ```
-# 说明
+## 说明
 
 - 默认的 config.yml 不再调用, 如果有特殊需求, 可以自己编译后挂载到容器里面即可
 - .env 的变量 用在 docker-compose 里面, 可以自己看下
