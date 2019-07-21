@@ -5,12 +5,11 @@ rm -rf /config/guacamole/data/log/*
 rm -rf /config/tomcat9/logs/*
 
 sleep 5s
-while ! nc -z core 8080;
+while [ "$(curl -I -m 10 -o /dev/null -s -w %{http_code} $JUMPSERVER_SERVER)" != "302" ]
 do
     echo "wait for jms_core ready"
-    sleep 2s
+    sleep 2
 done
-sleep 5s
 
 guacd &
 cd /config/tomcat9/bin && ./startup.sh

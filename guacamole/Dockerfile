@@ -32,6 +32,7 @@ RUN set -ex \
     && echo "java.util.logging.ConsoleHandler.encoding = UTF-8" >> /config/tomcat9/conf/logging.properties \
     && wget https://github.com/jumpserver/docker-guacamole/archive/${Version}.zip \
     && unzip ${Version}.zip \
+    && rm -rf ${Version}.zip \
     && mv docker-guacamole-${Version} docker-guacamole \
     && chown -R root:root docker-guacamole \
     && cd /config/docker-guacamole \
@@ -52,7 +53,7 @@ RUN set -ex \
     && tar xf linux-amd64.tar.gz -C /bin/ \
     && chmod +x /bin/ssh-forward \
     && rm -rf /config/linux-amd64.tar.gz \
-    && rm -rf /opt/docker-guacamole \
+    && rm -rf /config/docker-guacamole \
     && yum clean all \
     && rm -rf /var/cache/yum/*
 

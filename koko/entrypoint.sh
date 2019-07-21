@@ -2,12 +2,11 @@
 #
 
 sleep 5s
-while ! nc -z core 8080;
+while [ "$(curl -I -m 10 -o /dev/null -s -w %{http_code} $CORE_HOST)" != "302" ]
 do
     echo "wait for jms_core ready"
-    sleep 2s
+    sleep 2
 done
-sleep 5s
 
 if [ ! -f "/opt/coco/config.yml" ]; then
     cp /opt/coco/config_example.yml /opt/coco/config.yml
