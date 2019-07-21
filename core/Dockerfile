@@ -1,6 +1,6 @@
 FROM centos:latest
 WORKDIR /opt
-ENV Version=1.5.2
+ARG Version=1.5.2
 
 RUN set -ex \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \

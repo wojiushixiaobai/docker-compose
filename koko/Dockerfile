@@ -1,8 +1,7 @@
 FROM alpine:3.9
-
 WORKDIR /opt/coco
-ENV KokoAssets=koko-master-accd0e6-linux-amd64 \
-    Version=1.5.2
+ARG Version=1.5.2
+ENV KokoAssets=koko-master-accd0e6-linux-amd64
 
 RUN set -ex \
    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
