@@ -7,6 +7,7 @@ RUN set -ex \
    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
    && apk update \
    && apk add -U tzdata \
+   && apk add nmap \
    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
    && echo "Asia/Shanghai" > /etc/timezone \
    && wget https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}.tar.gz \

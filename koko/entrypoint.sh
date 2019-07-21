@@ -9,5 +9,13 @@ if [ ! -f "/opt/coco/config.yml" ]; then
     sed -i "s/# LOG_LEVEL: INFO/LOG_LEVEL: ERROR/g" /opt/coco/config.yml
 fi
 
+sleep 5s
+while ! nc -z core 8080;
+do
+    echo "wait for jms_core ready"
+    sleep 2s
+done
+sleep 5s
+
 cd /opt/coco
 ./koko

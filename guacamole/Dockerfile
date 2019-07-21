@@ -14,7 +14,7 @@ RUN set -ex \
     && rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
     && rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
     && yum -y localinstall --nogpgcheck https://mirrors.aliyun.com/rpmfusion/free/el/rpmfusion-free-release-7.noarch.rpm https://mirrors.aliyun.com/rpmfusion/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm \
-    && yum install -y make gcc libtool java-1.8.0-openjdk wget unzip \
+    && yum install -y make gcc libtool java-1.8.0-openjdk wget unzip nc \
     && yum install -y cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel \
     && yum install -y ffmpeg-devel freerdp-devel freerdp-plugins pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel ghostscript \
     && mkdir -p /config/guacamole /config/guacamole/lib /config/guacamole/extensions /config/guacamole/data/log/ \

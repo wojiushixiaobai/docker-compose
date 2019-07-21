@@ -5,6 +5,13 @@ localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
+sleep 5s
+while ! nc -z mysql 3306;
+do
+    echo "wait for jms_mysql ready"
+    sleep 2s
+done
+
 if [ ! -f "/opt/jumpserver/config.yml" ]; then
     cp /opt/jumpserver/config_example.yml /opt/jumpserver/config.yml
     sed -i "s/SECRET_KEY:/SECRET_KEY: $SECRET_KEY/g" /opt/jumpserver/config.yml

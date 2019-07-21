@@ -47,7 +47,6 @@ services:
       - static:/opt/jumpserver/data/static
       - media:/opt/jumpserver/data/media
       - logs:/opt/jumpserver/logs
-      - ./core/config.yml:/opt/jumpserver/config.yml
     networks:
       - jumpserver
 
@@ -65,7 +64,6 @@ services:
       - redis
     volumes:
       - keys-data:/opt/coco/keys
-      - ./koko/config.yml:/opt/coco/config.yml
     ports:
       - 2222:2222
     networks:
