@@ -85,8 +85,6 @@ services:
       - redis
     volumes:
       - gua-key:/config/guacamole/keys
-    ports:
-      - 8081:8081
     networks:
       - jumpserver
 
