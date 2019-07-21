@@ -6,7 +6,7 @@ services:
     restart: always
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: Somepassword
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: jumpserver
     command: --character-set-server=utf8
     volumes:
@@ -25,11 +25,21 @@ services:
       - jumpserver
 
   core:
-    image: jumpserver/jms_core:1.5.2
+    image: wojiushixiaobai/jms_core:1.5.2
     container_name: jms_core
     hostname: jms_core
     restart: always
     tty: true
+    environment:
+      SECRET_KEY: $SECRET_KEY
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
+      DB_ENGINE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: $MYSQL_ROOT_PASSWORD
+      DB_NAME: jumpserver
+      REDIS_HOST: redis
     depends_on:
       - mysql
       - redis
@@ -42,43 +52,48 @@ services:
       - jumpserver
 
   coco:
-    image: jumpserver/jms_koko:1.5.2
+    image: wojiushixiaobai/jms_koko:1.5.2
     container_name: jms_coco
     restart: always
     tty: true
+    environment:
+      CORE_HOST: http://core:8080
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
     depends_on:
       - core
       - mysql
       - redis
-    volumes: 
+    volumes:
       - keys-data:/opt/coco/keys
       - ./koko/config.yml:/opt/coco/config.yml
     ports:
       - 2222:2222
     networks:
       - jumpserver
-      
+
   guacamole:
-    image: jumpserver/jms_guacamole:1.5.2
+    image: wojiushixiaobai/jms_guacamole:1.5.2
     container_name: jms_guacamole
     restart: always
     tty: true
     environment:
       JUMPSERVER_SERVER: http://core:8080
-      BOOTSTRAP_TOKEN: swsUBHoKvktx4Bhu
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
+      JUMPSERVER_KEY_DIR: /config/guacamole/keys
+      GUACAMOLE_HOME: /config/guacamole
     depends_on:
       - core
       - mysql
       - redis
-    volumes: 
+    volumes:
       - gua-key:/config/guacamole/keys
     ports:
       - 8081:8081
     networks:
       - jumpserver
-      
+
   nginx:
-    image: nginx:1.16-alpine
+    image: wojiushixiaobai/jms_nginx:1.5.2
     container_name: jms_nginx
     restart: always
     tty: true
@@ -87,9 +102,7 @@ services:
       - coco
       - mysql
       - redis
-    volumes: 
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/luna:/opt/luna
+    volumes:
       - static:/opt/jumpserver/data/static
       - media:/opt/jumpserver/data/media
     ports:

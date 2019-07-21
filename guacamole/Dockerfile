@@ -57,6 +57,6 @@ RUN set -ex \
     && rm -rf /var/cache/yum/*
 
 COPY guacamole/entrypoint.sh .
-RUN chmod +x ./entrypoint.sh
+RUN chmod 755 ./entrypoint.sh
 
-CMD ["entrypoint.sh"]
+CMD ["./entrypoint.sh"]
