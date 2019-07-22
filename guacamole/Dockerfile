@@ -6,7 +6,9 @@ ENV LC_ALL=en_US.UTF-8 \
     TOMCAT_VER=9.0.22
 
 RUN set -ex \
-    && yum -y install epel-release \
+    && yum install -y epel-release \
+    && curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+    && curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
     && yum makecache \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && mkdir /usr/local/lib/freerdp/ \

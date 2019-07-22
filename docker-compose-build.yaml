@@ -26,7 +26,8 @@ services:
 
   core:
     build:
-      context: ./core
+      context: .
+      dockerfile: core/Dockerfile
       args:
         Version: ${Version}
     image: jms_core:${Version}
@@ -56,9 +57,11 @@ services:
 
   coco:
     build:
-      context: ./koko
+      context: .
+      dockerfile: koko/Dockerfile
       args:
         Version: ${Version}
+        GOPROXY: https://goproxy.io
     image: jms_koko:${Version}
     container_name: jms_coco
     restart: always
@@ -79,7 +82,8 @@ services:
 
   guacamole:
     build:
-      context: ./guacamole
+      context: .
+      dockerfile: guacamole/Dockerfile
       args:
         Version: ${Version}
     image: jms_guacamole:${Version}
@@ -102,7 +106,8 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: .
+      dockerfile: nginx/Dockerfile
       args:
         Version: ${Version}
     image: jms_nginx:${Version}
