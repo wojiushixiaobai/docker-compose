@@ -1,7 +1,7 @@
 FROM alpine:3.9
 WORKDIR /opt/coco
 ARG Version=1.5.2
-ENV KokoAssets=koko-master-accd0e6-linux-amd64
+ARG KokoAssets=koko-master-accd0e6-linux-amd64
 
 RUN set -ex \
    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
@@ -10,7 +10,7 @@ RUN set -ex \
    && apk add curl \
    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
    && echo "Asia/Shanghai" > /etc/timezone \
-   && https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}.tar.gz \
+   && wget https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}.tar.gz \
    && tar -xf ${KokoAssets}.tar.gz --strip-components=1 \
    && chown -R root:root * \
    && rm -rf ${KokoAssets}.tar.gz \

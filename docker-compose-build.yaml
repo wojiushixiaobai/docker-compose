@@ -62,6 +62,7 @@ services:
       args:
         Version: ${Version}
         GOPROXY: https://goproxy.io
+        KokoAssets: $KokoAssets
     image: jms_koko:${Version}
     container_name: jms_coco
     restart: always

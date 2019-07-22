@@ -6,6 +6,13 @@ $ cd docker-compose
 $ cat .env
 $ docker-compose up
 ```
+
+build
+```
+$ cd docker-compose
+$ cat .env
+$ docker-compose -f docker-compose-build up
+```
 ## 说明
 
 - 默认的 config.yml 不再调用, 如果有特殊需求, 可以自己编译后挂载到容器里面即可
