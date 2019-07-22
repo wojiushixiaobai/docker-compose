@@ -126,6 +126,6 @@ RUN set -ex \
     && apk del tzdata \
     && rm -rf /var/cache/apk/*
 
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/
 
 CMD ["nginx", "-g", "daemon off;"]
