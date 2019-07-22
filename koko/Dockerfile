@@ -10,7 +10,7 @@ RUN set -ex \
    && apk add curl \
    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
    && echo "Asia/Shanghai" > /etc/timezone \
-   && wget https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}.tar.gz \
+   && https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}.tar.gz \
    && tar -xf ${KokoAssets}.tar.gz --strip-components=1 \
    && chown -R root:root * \
    && rm -rf ${KokoAssets}.tar.gz \
