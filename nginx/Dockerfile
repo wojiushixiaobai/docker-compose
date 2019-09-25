@@ -1,7 +1,7 @@
 FROM alpine:3.9
 WORKDIR /opt
-ARG Version=1.5.2
-ENV TENGINE_VERSION=2.3.1
+ARG Version=1.5.3
+ENV TENGINE_VERSION=2.3.2
 ENV CONFIG "\
         --prefix=/etc/nginx \
         --sbin-path=/usr/sbin/nginx \

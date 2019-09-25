@@ -1,9 +1,9 @@
 FROM centos:latest
 WORKDIR /config
-ARG Version=1.5.2
+ARG Version=1.5.3
 ENV LC_ALL=en_US.UTF-8 \
     GUAC_VER=1.0.0 \
-    TOMCAT_VER=9.0.22
+    TOMCAT_VER=9.0.26
 
 RUN set -ex \
     && yum install -y epel-release \
