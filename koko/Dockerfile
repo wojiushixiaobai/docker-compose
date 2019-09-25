@@ -10,10 +10,10 @@ RUN set -ex \
    && apk add curl \
    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
    && echo "Asia/Shanghai" > /etc/timezone \
-   && wget https://github.com/jumpserver/koko/releases/download/${Version}/${KokoAssets}-linux-amd64.tar.gz \
-   && tar -xf ${KokoAssets}.tar.gz --strip-components=1 \
+   && wget https://github.com/jumpserver/koko/releases/download/${Version}/koko-master-linux-amd64.tar.gz \
+   && tar -xf koko-master-linux-amd64.tar.gz --strip-components=1 \
    && chown -R root:root * \
-   && rm -rf ${KokoAssets}.tar.gz \
+   && rm -rf koko-master-linux-amd64.tar.gz \
    && apk del tzdata \
    && rm -rf /var/cache/apk/*
 
