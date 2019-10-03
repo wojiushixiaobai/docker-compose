@@ -55,7 +55,7 @@ services:
     networks:
       - jumpserver
 
-  coco:
+  koko:
     build:
       context: .
       dockerfile: koko/Dockerfile
@@ -63,7 +63,7 @@ services:
         Version: ${Version}
         GOPROXY: https://goproxy.io
     image: jms_koko:${Version}
-    container_name: jms_coco
+    container_name: jms_koko
     restart: always
     tty: true
     environment:
@@ -74,7 +74,7 @@ services:
       - mysql
       - redis
     volumes:
-      - keys-data:/opt/coco/keys
+      - keys-data:/opt/koko/data/keys
     ports:
       - 2222:2222
     networks:
@@ -116,7 +116,7 @@ services:
     tty: true
     depends_on:
       - core
-      - coco
+      - koko
       - mysql
       - redis
     volumes:

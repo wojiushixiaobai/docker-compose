@@ -1,5 +1,5 @@
 FROM alpine:3.9
-WORKDIR /opt/coco
+WORKDIR /opt/koko
 ARG Version=1.5.3
 
 RUN set -ex \
