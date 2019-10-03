@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7
 WORKDIR /config
 ARG Version=1.5.3
 ENV LC_ALL=en_US.UTF-8 \

@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7
 WORKDIR /opt
 ARG Version=1.5.3
 
