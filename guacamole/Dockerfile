@@ -1,9 +1,9 @@
 FROM centos:7
 WORKDIR /config
-ARG Version=1.5.3
+ARG Version=1.5.4
 ENV LC_ALL=en_US.UTF-8 \
     GUAC_VER=1.0.0 \
-    TOMCAT_VER=9.0.26
+    TOMCAT_VER=9.0.27
 
 RUN set -ex \
     && yum install -y epel-release \
@@ -18,7 +18,7 @@ RUN set -ex \
     && yum -y localinstall --nogpgcheck https://mirrors.aliyun.com/rpmfusion/free/el/rpmfusion-free-release-7.noarch.rpm https://mirrors.aliyun.com/rpmfusion/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm \
     && yum install -y make gcc libtool java-1.8.0-openjdk wget unzip \
     && yum install -y cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel \
-    && yum install -y ffmpeg-devel freerdp-devel freerdp-plugins pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel ghostscript \
+    && yum install -y ffmpeg-devel freerdp1.2-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel ghostscript \
     && mkdir -p /config/guacamole /config/guacamole/lib /config/guacamole/extensions /config/guacamole/data/log/ \
     && wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-9/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz \
     && tar xf apache-tomcat-${TOMCAT_VER}.tar.gz \

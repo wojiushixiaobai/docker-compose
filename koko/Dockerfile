@@ -1,6 +1,6 @@
 FROM alpine:3.9
 WORKDIR /opt/koko
-ARG Version=1.5.3
+ARG Version=1.5.4
 
 RUN set -ex \
    && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
