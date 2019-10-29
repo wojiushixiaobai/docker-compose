@@ -11,10 +11,6 @@ do
     sleep 2
 done
 
-if [ ! $GUACAMOLE_LOG_LEVEL ]; then
-    export GUACAMOLE_LOG_LEVEL=ERROR
-fi
-
 guacd &
 cd /config/tomcat9/bin && ./startup.sh
 

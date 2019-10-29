@@ -79,6 +79,7 @@ services:
       BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
       JUMPSERVER_KEY_DIR: /config/guacamole/keys
       GUACAMOLE_HOME: /config/guacamole
+      GUACAMOLE_LOG_LEVEL: ERROR
     depends_on:
       - core
       - mysql
