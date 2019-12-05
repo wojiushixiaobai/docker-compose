@@ -1,6 +1,6 @@
 FROM alpine:3.9
 WORKDIR /opt
-ARG Version=1.5.4
+ARG Version=1.5.5
 ENV TENGINE_VERSION=2.3.2
 ENV CONFIG "\
         --prefix=/etc/nginx \

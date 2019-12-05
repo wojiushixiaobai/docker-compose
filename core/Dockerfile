@@ -1,6 +1,6 @@
 FROM centos:7
 WORKDIR /opt
-ARG Version=1.5.4
+ARG Version=1.5.5
 
 RUN set -ex \
     && curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
