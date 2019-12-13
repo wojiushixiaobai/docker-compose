@@ -1,6 +1,12 @@
 #!/bin/bash
 #
 
+export JUMPSERVER_KEY_DIR=/config/guacamole/keys
+export GUACAMOLE_HOME=/config/guacamole
+export GUACAMOLE_LOG_LEVEL=ERROR
+export JUMPSERVER_CLEAR_DRIVE_SESSION=true
+export JUMPSERVER_ENABLE_DRIVE=true
+
 rm -rf /config/guacamole/data/log/*
 rm -rf /config/tomcat9/logs/*
 
