@@ -23,7 +23,6 @@ RUN set -ex \
     && mv apache-tomcat-${TOMCAT_VER} tomcat9 \
     && rm -rf apache-tomcat-${TOMCAT_VER}.tar.gz \
     && rm -rf tomcat9/webapps/* \
-    && sed -i 's/Connector port="8080"/Connector port="8081"/g' /config/tomcat9/conf/server.xml \
     && sed -i 's/level = FINE/level = OFF/g' /config/tomcat9/conf/logging.properties \
     && sed -i 's/level = INFO/level = OFF/g' /config/tomcat9/conf/logging.properties \
     && sed -i 's@CATALINA_OUT="$CATALINA_BASE"/logs/catalina.out@CATALINA_OUT=/dev/null@g' /config/tomcat9/bin/catalina.sh \
