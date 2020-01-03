@@ -1,6 +1,6 @@
 FROM centos:7
 WORKDIR /config
-ARG Version=1.5.5
+ARG Version=1.5.6
 ENV LC_ALL=en_US.UTF-8 \
     GUAC_VER=1.0.0 \
     TOMCAT_VER=9.0.30
