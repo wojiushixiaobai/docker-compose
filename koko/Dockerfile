@@ -1,20 +1,22 @@
-FROM alpine:3.9
-WORKDIR /opt/koko
+FROM centos:7
+WORKDIR /opt
 ARG Version=1.5.6
+ENV LC_ALL=en_US.UTF-8
 
 RUN set -ex \
-   && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
-   && apk update \
-   && apk add -U tzdata \
-   && apk add curl \
-   && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-   && echo "Asia/Shanghai" > /etc/timezone \
+   && yum install -y wget \
+   && wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+   && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo \
+   && yum makecache \
+   && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+   && yum -y localinstall --nogpgcheck https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-client-8.0.18-1.el7.x86_64.rpm https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-libs-8.0.18-1.el7.x86_64.rpm https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-common-8.0.18-1.el7.x86_64.rpm \
    && wget https://github.com/jumpserver/koko/releases/download/${Version}/koko-master-linux-amd64.tar.gz \
-   && tar -xf koko-master-linux-amd64.tar.gz --strip-components=1 \
-   && chown -R root:root * \
+   && tar -xf koko-master-linux-amd64.tar.gz \
+   && mv kokodir koko \
+   && chown -R root:root koko \
    && rm -rf koko-master-linux-amd64.tar.gz \
-   && apk del tzdata \
-   && rm -rf /var/cache/apk/*
+   && yum clean all \
+   && rm -rf /var/cache/yum*
 
 COPY koko/entrypoint.sh .
 RUN chmod 755 ./entrypoint.sh

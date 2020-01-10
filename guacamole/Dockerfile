@@ -6,9 +6,10 @@ ENV LC_ALL=en_US.UTF-8 \
     TOMCAT_VER=9.0.30
 
 RUN set -ex \
-    && yum install -y epel-release \
-    && curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+    && yum install -y epel-release wget \
+    && wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
     && curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
+    && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo \
     && yum makecache \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && mkdir /usr/local/lib/freerdp/ \
@@ -54,7 +55,7 @@ RUN set -ex \
     && rm -rf /config/linux-amd64.tar.gz \
     && rm -rf /config/docker-guacamole \
     && yum clean all \
-    && rm -rf /var/cache/yum/*
+    && rm -rf /var/tmp/yum*
 
 COPY guacamole/entrypoint.sh .
 RUN chmod 755 ./entrypoint.sh
