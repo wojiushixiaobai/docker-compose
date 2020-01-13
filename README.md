@@ -11,7 +11,7 @@ build
 ```
 $ cd docker-compose
 $ cat .env
-$ docker-compose -f docker-compose-build up
+$ docker-compose -f docker-compose-build.yaml up
 ```
 ## 说明
 

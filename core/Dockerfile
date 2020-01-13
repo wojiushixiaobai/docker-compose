@@ -1,18 +1,17 @@
 FROM centos:7
 WORKDIR /opt
 ARG Version=1.5.6
+ENV LC_ALL=en_US.UTF-8
 
 RUN set -ex \
-    && curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
-    && curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
+    && yum install -y epel-release wget \
+    && wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+    && wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
+    && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo \
     && yum makecache \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && yum -y install kde-l10n-Chinese gcc nc \
-    && yum -y reinstall glibc-common \
-    && localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8 \
-    && export LC_ALL=zh_CN.UTF-8 \
-    && echo 'LANG="zh_CN.UTF-8"' > /etc/locale.conf \
-    && yum -y install python36 python36-devel unzip wget \
+    && yum -y install gcc nc \
+    && yum -y install python36 python36-devel unzip \
     && wget https://github.com/jumpserver/jumpserver/archive/${Version}.zip \
     && unzip ${Version}.zip \
     && mv jumpserver-${Version} jumpserver \
@@ -27,7 +26,7 @@ RUN set -ex \
     && yum clean all \
     && rm -rf /var/cache/yum/* \
     && rm -rf /opt/${Version}.zip \
-    && rm -rf /var/cache/yum/* \
+    && rm -rf /var/cache/yum* \
     && rm -rf ~/.cache/pip
 
 COPY core/entrypoint.sh .

@@ -8,7 +8,7 @@ ENV LC_ALL=en_US.UTF-8 \
 RUN set -ex \
     && yum install -y epel-release wget \
     && wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
-    && curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
+    && wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo \
     && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo \
     && yum makecache \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \

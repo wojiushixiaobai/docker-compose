@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.11
 WORKDIR /opt
 ARG Version=1.5.6
 ENV TENGINE_VERSION=2.3.2

@@ -1,10 +1,6 @@
 #!/bin/bash
 #
 
-localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8
-export LANG=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
-
 sleep 5s
 while ! nc -z mysql 3306;
 do
@@ -28,6 +24,7 @@ if [ ! -f "/opt/jumpserver/config.yml" ]; then
     sed -i "s/REDIS_HOST: 127.0.0.1/REDIS_HOST: $REDIS_HOST/g" /opt/jumpserver/config.yml
     sed -i "s/REDIS_PORT: 6379/REDIS_PORT: $REDIS_PORT/g" /opt/jumpserver/config.yml
     sed -i "s/# REDIS_PASSWORD: /REDIS_PASSWORD: $REDIS_PASSWORD/g" /opt/jumpserver/config.yml
+    sed -i "s/# WINDOWS_SKIP_ALL_MANUAL_PASSWORD: False/WINDOWS_SKIP_ALL_MANUAL_PASSWORD: True/g" /opt/jumpserver/config.yml
 fi
 
 source /opt/py3/bin/activate
