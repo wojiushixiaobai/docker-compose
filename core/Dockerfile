@@ -32,7 +32,4 @@ RUN set -ex \
 COPY core/entrypoint.sh .
 RUN chmod 755 ./entrypoint.sh
 
-ENV LANG=zh_CN.UTF-8 \
-    LC_ALL=zh_CN.UTF-8
-
 CMD ["./entrypoint.sh"]
