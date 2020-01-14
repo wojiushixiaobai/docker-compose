@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: jumpserver
     command: --character-set-server=utf8
     volumes:
-      - db-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     networks:
       - jumpserver
 
@@ -25,9 +25,13 @@ services:
       - jumpserver
 
   core:
-    image: wojiushixiaobai/jms_core:${Version}
+    build:
+      context: .
+      dockerfile: core/Dockerfile
+      args:
+        Version: ${Version}
+    image: jms_core:${Version}
     container_name: jms_core
-    hostname: jms_core
     restart: always
     tty: true
     environment:
@@ -46,12 +50,17 @@ services:
     volumes:
       - static:/opt/jumpserver/data/static
       - media:/opt/jumpserver/data/media
-      - logs:/opt/jumpserver/logs
     networks:
       - jumpserver
 
   koko:
-    image: wojiushixiaobai/jms_koko:${Version}
+    build:
+      context: .
+      dockerfile: koko/Dockerfile
+      args:
+        Version: ${Version}
+        GOPROXY: https://goproxy.io
+    image: jms_koko:${Version}
     container_name: jms_koko
     restart: always
     tty: true
@@ -63,14 +72,19 @@ services:
       - mysql
       - redis
     volumes:
-      - keys-data:/opt/koko/data/keys
+      - koko-kyes:/opt/koko/data/keys
     ports:
       - 2222:2222
     networks:
       - jumpserver
 
   guacamole:
-    image: wojiushixiaobai/jms_guacamole:${Version}
+    build:
+      context: .
+      dockerfile: guacamole/Dockerfile
+      args:
+        Version: ${Version}
+    image: jms_guacamole:${Version}
     container_name: jms_guacamole
     restart: always
     tty: true
@@ -87,12 +101,17 @@ services:
       - mysql
       - redis
     volumes:
-      - gua-key:/config/guacamole/keys
+      - guacamole-keys:/config/guacamole/keys
     networks:
       - jumpserver
 
   nginx:
-    image: wojiushixiaobai/jms_nginx:${Version}
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        Version: ${Version}
+    image: jms_nginx:${Version}
     container_name: jms_nginx
     restart: always
     tty: true
@@ -112,11 +131,10 @@ services:
 volumes:
   static:
   media:
-  logs:
-  db-data:
+  mysql-data:
   redis-data:
-  keys-data:
-  gua-key:
+  koko-kyes:
+  guacamole-keys:
 
 networks:
   jumpserver:
