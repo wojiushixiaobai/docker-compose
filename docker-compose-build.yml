@@ -1,26 +1,40 @@
 version: '3'
 services:
   mysql:
-    image: mysql:5.7
+    build:
+      context: .
+      dockerfile: mysql/Dockerfile
+      args:
+        Version: ${Version}
+    image: jms_mysql:${Version}
     container_name: jms_mysql
     restart: always
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: jumpserver
-    command: --character-set-server=utf8
+      DB_PORT: $DB_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NAME
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - jumpserver
 
   redis:
-    image: redis:alpine
+    build:
+      context: .
+      dockerfile: redis/Dockerfile
+      args:
+        Version: ${Version}
+    image: jms_redis:${Version}
     container_name: jms_redis
     restart: always
     tty: true
+    environment:
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
     volumes:
-      - redis-data:/data
+      - redis-data:/var/lib/redis/
     networks:
       - jumpserver
 
@@ -37,13 +51,14 @@ services:
     environment:
       SECRET_KEY: $SECRET_KEY
       BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
-      DB_ENGINE: mysql
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: root
-      DB_PASSWORD: $MYSQL_ROOT_PASSWORD
-      DB_NAME: jumpserver
-      REDIS_HOST: redis
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_NAME: $DB_NAME
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
     depends_on:
       - mysql
       - redis
@@ -59,7 +74,6 @@ services:
       dockerfile: koko/Dockerfile
       args:
         Version: ${Version}
-        GOPROXY: https://goproxy.io
     image: jms_koko:${Version}
     container_name: jms_koko
     restart: always
@@ -72,7 +86,7 @@ services:
       - mysql
       - redis
     volumes:
-      - koko-kyes:/opt/koko/data/keys
+      - koko-keys:/opt/koko/data/keys
     ports:
       - 2222:2222
     networks:
@@ -133,7 +147,7 @@ volumes:
   media:
   mysql-data:
   redis-data:
-  koko-kyes:
+  koko-keys:
   guacamole-keys:
 
 networks:

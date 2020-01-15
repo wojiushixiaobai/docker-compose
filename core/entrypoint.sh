@@ -2,9 +2,15 @@
 #
 
 sleep 5s
-while ! nc -z mysql 3306;
+while ! nc -z $DB_HOST $DB_PORT;
 do
     echo "wait for jms_mysql ready"
+    sleep 2s
+done
+
+while ! nc -z $REDIS_HOST $REDIS_PORT;
+do
+    echo "wait for jms_redis ready"
     sleep 2s
 done
 
@@ -15,7 +21,6 @@ if [ ! -f "/opt/jumpserver/config.yml" ]; then
     sed -i "s/# DEBUG: true/DEBUG: false/g" /opt/jumpserver/config.yml
     sed -i "s/# LOG_LEVEL: DEBUG/LOG_LEVEL: ERROR/g" /opt/jumpserver/config.yml
     sed -i "s/# SESSION_EXPIRE_AT_BROWSER_CLOSE: false/SESSION_EXPIRE_AT_BROWSER_CLOSE: true/g" /opt/jumpserver/config.yml
-    sed -i "s/DB_ENGINE: mysql/DB_HOST: $DB_ENGINE/g" /opt/jumpserver/config.yml
     sed -i "s/DB_HOST: 127.0.0.1/DB_HOST: $DB_HOST/g" /opt/jumpserver/config.yml
     sed -i "s/DB_PORT: 3306/DB_PORT: $DB_PORT/g" /opt/jumpserver/config.yml
     sed -i "s/DB_USER: jumpserver/DB_USER: $DB_USER/g" /opt/jumpserver/config.yml
