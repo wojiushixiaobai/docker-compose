@@ -7,7 +7,7 @@ ENV Version=${Version} \
 RUN set -ex \
    && yum install -y wget \
    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-   && yum -y localinstall --nogpgcheck https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-client-8.0.18-1.el7.x86_64.rpm https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-libs-8.0.18-1.el7.x86_64.rpm https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-community-common-8.0.18-1.el7.x86_64.rpm \
+   && yum -y install mariadb \
    && wget https://github.com/jumpserver/koko/releases/download/${Version}/koko-master-linux-amd64.tar.gz \
    && tar -xf koko-master-linux-amd64.tar.gz \
    && mv kokodir koko \
