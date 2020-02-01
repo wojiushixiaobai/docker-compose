@@ -10,9 +10,6 @@ fi
 if [ ! $GUACAMOLE_LOG_LEVEL ]; then
     export GUACAMOLE_LOG_LEVEL=ERROR
 fi
-if [ ! $JUMPSERVER_CLEAR_DRIVE_SESSION ]; then
-    export JUMPSERVER_CLEAR_DRIVE_SESSION=true
-fi
 if [ ! $JUMPSERVER_ENABLE_DRIVE ]; then
     export JUMPSERVER_ENABLE_DRIVE=true
 fi
