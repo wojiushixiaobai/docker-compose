@@ -15,7 +15,7 @@ RUN set -ex \
     && yum install -y make gcc libtool java-1.8.0-openjdk wget unzip \
     && yum install -y cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel \
     && yum install -y ffmpeg-devel freerdp1.2-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel \
-    && mkdir -p /config/guacamole /config/guacamole/lib /config/guacamole/extensions /config/guacamole/data/log/ \
+    && mkdir -p /config/guacamole /config/guacamole/lib /config/guacamole/extensions /config/guacamole/data/log/ /config/guacamole/record /config/guacamole/drive \
     && chown daemon:daemon /config/guacamole/record /config/guacamole/drive \
     && cd /config \
     && wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-9/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz \
